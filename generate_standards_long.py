@@ -1,8 +1,8 @@
 import json
-import requests
+import getopt
 import time
 import sys
-import getopt
+import requests
 
 BG_PASS = '\x1b[2;30;42m'
 BG_FAIL = '\x1b[2;30;41m'
@@ -13,6 +13,7 @@ standards = []
 gamuts = []
 test_patterns = []
 count = 0
+
 try:
     opts, args = getopt.getopt(sys.argv[1:], 'h', ['help'])
     # for _ in args:
