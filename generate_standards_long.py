@@ -1,19 +1,29 @@
 import json
 import requests
 import time
+import sys
+import getopt
 
 BG_PASS = '\x1b[2;30;42m'
 BG_FAIL = '\x1b[2;30;41m'
 BG_RESET = '\x1b[0m'
-BASE_URL = 'http://qx-022160.local:8080/api/v1/generator/standards/'
 HEADERS = {'Content-Type': 'application/json'}
 DATA = {'action': 'start'}
 standards = []
 gamuts = []
 test_patterns = []
 count = 0
+try:
+    opts, args = getopt.getopt(sys.argv[1:], 'h', ['help'])
+    # for _ in args:
+    #     print(_)
+    unit = args[0]
+    base_url = f'http://{unit}.local:8080/api/v1/generator/standards/'
+except getopt.GetoptError:
+    print('generate_standards_long.py')
+    sys.exit(2)
 
-response = requests.get(BASE_URL, headers=HEADERS, data=json.dumps(DATA))
+response = requests.get(base_url, headers=HEADERS, data=json.dumps(DATA))
 resp_str = json.dumps(response.json())
 
 resp_dict = json.loads(resp_str)
